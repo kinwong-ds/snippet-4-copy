@@ -4,8 +4,42 @@ const snippetInput = document.getElementById('snippet-input');
 const groupInput = document.getElementById('group-input'); // New group input
 const addSnippetBtn = document.getElementById('add-snippet-btn');
 const snippetsList = document.getElementById('snippets-list');
+const themeToggle = document.getElementById('checkbox'); // Dark mode toggle
 
 const UNGROUPED_KEY = '__ungrouped__'; // Key for snippets without a group
+const THEME_KEY = 'themePreference'; // Key for storing theme preference
+
+// --- Theme Functions ---
+
+// Function to apply the theme (light or dark)
+function applyTheme(isDark) {
+    if (isDark) {
+        document.body.classList.add('dark-mode');
+    } else {
+        document.body.classList.remove('dark-mode');
+    }
+}
+
+// Function to save the theme preference
+async function saveThemePreference(isDark) {
+    await chrome.storage.local.set({ [THEME_KEY]: isDark ? 'dark' : 'light' });
+}
+
+// Function to load the theme preference and apply it
+async function loadAndApplyTheme() {
+    const result = await chrome.storage.local.get([THEME_KEY]);
+    const savedTheme = result[THEME_KEY]; // Will be 'dark', 'light', or undefined
+
+    // Default to light mode if no preference is saved
+    const isDark = savedTheme === 'dark';
+
+    applyTheme(isDark);
+
+    // Set the toggle switch state to match the loaded theme
+    if (themeToggle) {
+        themeToggle.checked = isDark;
+    }
+}
 
 // --- Storage Functions ---
 
@@ -361,8 +395,20 @@ groupInput.addEventListener('keypress', (event) => {
     }
 });
 
+// Add listener for the theme toggle switch
+if (themeToggle) {
+    themeToggle.addEventListener('change', () => {
+        const isDark = themeToggle.checked;
+        applyTheme(isDark);
+        saveThemePreference(isDark);
+    });
+}
+
 
 // --- Initial Load ---
 
-// Load and display snippets when the sidebar opens
-displaySnippets();
+// Load and apply the saved theme preference first
+loadAndApplyTheme().then(() => {
+    // Then load and display snippets
+    displaySnippets();
+});
