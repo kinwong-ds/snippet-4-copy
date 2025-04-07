@@ -1,0 +1,179 @@
+body {
+    font-family: sans-serif;
+    padding: 10px;
+    min-width: 250px; /* Ensure the panel has some minimum width */
+}
+
+h1, h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+textarea#snippet-input {
+    width: calc(100% - 16px); /* Account for padding */
+    min-height: 80px;
+    margin-bottom: 10px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    resize: vertical; /* Allow vertical resizing */
+}
+.input-group {
+    display: flex;
+    margin-bottom: 15px;
+    gap: 5px; /* Add space between group input and button */
+}
+
+input#group-input {
+    flex-grow: 1; /* Allow group input to take available space */
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button#add-snippet-btn {
+    padding: 8px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    /* margin-bottom removed as it's handled by input-group */
+}
+
+button#add-snippet-btn:hover {
+    background-color: #0056b3;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+}
+
+#snippets-list {
+    margin-top: 10px;
+}
+
+.snippet-group {
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    background-color: #ffffff;
+}
+
+.snippet-group h3 {
+    background-color: #f0f0f0;
+    padding: 8px 10px;
+    margin: 0;
+    font-size: 1em;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 4px 4px 0 0;
+    display: flex; /* Use flexbox for alignment */
+    justify-content: space-between; /* Space between title and buttons */
+    align-items: center; /* Center items vertically */
+    min-height: 24px; /* Ensure consistent height even if buttons wrap slightly */
+}
+
+.snippet-group h3 > span { /* Target the title span specifically */
+    flex-grow: 1; /* Allow title to take available space */
+    margin-right: 10px; /* Space between title and buttons */
+    overflow: hidden; /* Prevent long titles from breaking layout */
+    text-overflow: ellipsis; /* Show ellipsis for overflow */
+    white-space: nowrap; /* Keep title on one line */
+}
+
+.sort-buttons {
+    display: flex;
+    align-items: center;
+    gap: 4px; /* Space between buttons */
+    flex-shrink: 0; /* Prevent button container from shrinking */
+}
+
+.sort-btn {
+    background: #ddd;
+    color: #333;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 0px 4px;
+    font-size: 12px;
+    line-height: 16px; /* Adjust for better vertical alignment */
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.sort-btn:hover {
+    background: #ccc;
+}
+
+.delete-group-btn {
+    background: #ffcccc; /* Slightly less intense red */
+    color: #700;
+    border: 1px solid #f99;
+    border-radius: 3px;
+    padding: 1px 5px; /* Adjusted padding */
+    font-size: 10px;
+    cursor: pointer;
+    /* margin-left removed, gap in sort-buttons handles spacing */
+}
+
+.delete-group-btn:hover {
+    background: #ff8080;
+    color: white;
+    border-color: #f44;
+}
+
+.snippet-group-content {
+    padding: 10px;
+}
+
+.snippet-item {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 8px;
+    /* Remove background from individual items if group has background */
+    background-color: #f9f9f9;
+    cursor: pointer;
+    position: relative; /* Needed for absolute positioning of the delete button */
+    white-space: pre-wrap; /* Preserve whitespace and line breaks */
+    word-wrap: break-word; /* Ensure long words don't overflow */
+}
+
+.snippet-item:hover {
+    background-color: #f1f1f1;
+}
+
+.snippet-item.copied {
+    background-color: #d4edda; /* Light green feedback */
+    transition: background-color 0.1s ease-in-out;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 18px; /* Adjust for vertical centering */
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.snippet-item:hover .delete-btn {
+    opacity: 1;
+}
+
+.delete-btn:hover {
+    background: #cc0000;
+}
