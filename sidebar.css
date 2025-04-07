@@ -166,7 +166,7 @@ hr {
     line-height: 18px; /* Adjust for vertical centering */
     text-align: center;
     cursor: pointer;
-    opacity: 0.7;
+    opacity: 0; /* Hidden by default */
     transition: opacity 0.2s;
 }
 

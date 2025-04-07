@@ -162,7 +162,15 @@ async function displaySnippets() {
         snippets.forEach((snippetText, index) => {
             const snippetDiv = document.createElement('div');
             snippetDiv.classList.add('snippet-item');
-            snippetDiv.textContent = snippetText;
+            // Truncate long snippets for display
+            const words = snippetText.split(/\s+/); // Split by whitespace
+            const maxWords = 20;
+            let displayText = snippetText; // Default to full text
+
+            if (words.length > maxWords) {
+                displayText = words.slice(0, maxWords).join(' ') + '...';
+            }
+            snippetDiv.textContent = displayText; // Use the potentially truncated text
 
             // Add click listener for copying
             snippetDiv.addEventListener('click', (event) => {
